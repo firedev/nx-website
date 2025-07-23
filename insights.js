@@ -187,7 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateCountdown() {
         const countdownEl = document.getElementById('countdown');
         if (countdownEl) {
-            countdownEl.textContent = secondsLeft;
+            // Use requestAnimationFrame for smoother updates on iOS
+            requestAnimationFrame(() => {
+                countdownEl.textContent = secondsLeft;
+            });
         }
         secondsLeft--;
         if (secondsLeft < 0) {
