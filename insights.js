@@ -181,28 +181,62 @@ function displayInsights() {
 // Initial display
 document.addEventListener('DOMContentLoaded', () => {
     let intervalId;
+    let countdownIntervalId;
+    let secondsLeft = 30;
+    
+    function updateCountdown() {
+        const countdownEl = document.getElementById('countdown');
+        if (countdownEl) {
+            countdownEl.textContent = secondsLeft;
+        }
+        secondsLeft--;
+        if (secondsLeft < 0) {
+            secondsLeft = 30;
+        }
+    }
     
     function startTimer() {
-        // Clear existing interval if any
+        // Clear existing intervals if any
         if (intervalId) {
             clearInterval(intervalId);
         }
-        // Start new interval
-        intervalId = setInterval(displayInsights, 30000);
+        if (countdownIntervalId) {
+            clearInterval(countdownIntervalId);
+        }
+        
+        // Reset countdown
+        secondsLeft = 30;
+        updateCountdown();
+        
+        // Start countdown interval (updates every second)
+        countdownIntervalId = setInterval(updateCountdown, 1000);
+        
+        // Start refresh interval
+        intervalId = setInterval(() => {
+            displayInsights();
+            secondsLeft = 30;
+        }, 30000);
     }
     
     // Initial display
     displayInsights();
     startTimer();
     
-    // Change on click and restart timer
-    const philosophySection = document.querySelector('.philosophy-section');
-    if (philosophySection) {
-        philosophySection.addEventListener('click', (e) => {
-            if (e.target.closest('#insights-container')) {
-                displayInsights();
-                startTimer(); // Restart the timer after manual click
-            }
+    // Handle refresh button click
+    const refreshButton = document.getElementById('refresh-insights');
+    if (refreshButton) {
+        refreshButton.addEventListener('click', () => {
+            displayInsights();
+            startTimer(); // Restart the timer after manual click
+        });
+    }
+    
+    // Handle click on insights container
+    const insightsContainer = document.getElementById('insights-container');
+    if (insightsContainer) {
+        insightsContainer.addEventListener('click', () => {
+            displayInsights();
+            startTimer(); // Restart the timer after manual click
         });
     }
 });

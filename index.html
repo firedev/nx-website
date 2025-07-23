@@ -157,13 +157,16 @@
         </div>
 
         <div class="border-t border-white/20 pt-6 philosophy-section">
-            <h2 class="text-2xl font-semibold mb-4 text-center">Click insights to refresh</h2>
+            <div class="flex items-center justify-center mb-4 gap-3">
+                <h2 class="text-2xl font-semibold">Mine Joy</h2>
+                <button id="refresh-insights" class="flex items-center gap-2 glass-effect px-3 py-1 rounded-lg hover:bg-white/20 transition">
+                    <span class="material-icons text-xl">refresh</span>
+                    <span id="countdown" class="tabular-nums">30</span>
+                </button>
+            </div>
             <div id="insights-container" class="grid md:grid-cols-2 gap-4 text-sm cursor-pointer">
                 <!-- Insights will be dynamically loaded here -->
             </div>
-            <p class="text-center mt-6 text-lg">
-                Joy is life itself, mine it daily.
-            </p>
         </div>
     </div>
 
