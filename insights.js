@@ -104,7 +104,7 @@ const insights = [
     description: 'Having the same ideal day structure creates rhythm where everything works in unison.',
   },
   {
-    title: "You Don't Have to Participate",
+    title: "Strategic Ignorance",
     description: "You can choose not to play games where you don't like the rules - selective detachment from unconscious commitments.",
   },
   {
@@ -128,16 +128,16 @@ const insights = [
     description: 'Everything in the Universe becomes more complex over time - the game creates itself, becoming more interesting.',
   },
   {
-    title: 'Nirvana as Extinguishing',
-    description: 'Liberation through extinguishing desires - path includes knowledge, morality, and meditation.',
+    title: 'Peace and Chill',
+    description: 'Liberation through extinguishing desires with knowledge, wisdom, and meditation.',
   },
   {
     title: 'Synchronicity Magic',
-    description: 'Recording instances when wishes manifest - the universe responds to clear intentions.',
+    description: "The universe responds to clear intentions. Don't accumulate karma, just be a good person.",
   },
   {
-    title: 'Imagination Prison',
-    description: 'We project ourselves into imaginary worlds based on memories and fears - turn attention from screen to self.',
+    title: 'The Prison of the Mind',
+    description: 'We project ourselves into imaginary worlds based on memories and fears. Turn attention from screen to self.',
   },
   {
     title: 'Natural Distribution',
@@ -145,7 +145,7 @@ const insights = [
   },
   {
     title: 'Mental Poisons',
-    description: 'Mental formations that poison consciousness like ticks injecting venom that lasts a lifetime.',
+    description: 'Mental formations that poison consciousness with venom that lasts a lifetime.',
   },
   {
     title: 'Freediving as Unity',
@@ -169,7 +169,7 @@ const insights = [
   },
   {
     title: 'Flow State',
-    description: 'Flow happens when spirit and mind unite. The mind realizes what should happen and stops resisting.',
+    description: 'Flow is when spirit and mind unite. The stop resisting what should happen.',
   },
   {
     title: 'The Middle Way',
@@ -184,7 +184,7 @@ const insights = [
     description: "Until the unconscious becomes conscious, it will direct your life and you'll call it fate. - Carl Jung",
   },
   {
-    title: 'No Control Needed',
+    title: 'No Control',
     description: 'Never act until you have clearly answered: What happens if I do nothing? - Robert Brault',
   },
   {
