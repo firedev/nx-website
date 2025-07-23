@@ -172,7 +172,7 @@ function displayInsights() {
     
     container.innerHTML = selectedInsights.map(insight => `
         <div class="glass-effect rounded-lg p-4 transition-all duration-500">
-            <h3 class="font-semibold mb-2">${insight.title}</h3>
+            <h3 class="text-lg font-bold tracking-tight mb-2">${insight.title}</h3>
             <p class="opacity-90">${insight.description}</p>
         </div>
     `).join('');
