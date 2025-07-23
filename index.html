@@ -69,6 +69,12 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
+        /* Fix iOS touch issues */
+        #refresh-insights {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4 bg-sky-900 text-white">

@@ -225,13 +225,18 @@ document.addEventListener('DOMContentLoaded', () => {
     displayInsights();
     startTimer();
     
-    // Handle refresh button click
+    // Handle refresh button click with touch support
     const refreshButton = document.getElementById('refresh-insights');
     if (refreshButton) {
-        refreshButton.addEventListener('click', () => {
+        const handleRefresh = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             displayInsights();
             startTimer(); // Restart the timer after manual click
-        });
+        };
+        
+        refreshButton.addEventListener('click', handleRefresh);
+        refreshButton.addEventListener('touchstart', handleRefresh);
     }
     
     // Handle click on insights container
