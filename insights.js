@@ -12,8 +12,8 @@ const insights = [
         description: "True thoughts create new reality, not evaluate the past. Think toward creation, not backward toward judgment."
     },
     {
-        title: "Dream Life",
-        description: "Be the projector of reality, not a receiver. Don't stop projecting your reality."
+        title: "Projector vs Receiver",
+        description: "Be a projector of reality, not just a receiver. Create your world instead of reacting to it."
     },
     {
         title: "The Second Arrow",
@@ -45,7 +45,7 @@ const insights = [
     },
     {
         title: "Mining vs Digging",
-        description: "Mine for joy (копай), don't dig into problems (копайся). One is productive, the other destructive."
+        description: "Mine for joy, don't dig into problems. One is productive, the other destructive."
     },
     {
         title: "The Matrix",
@@ -78,6 +78,86 @@ const insights = [
     {
         title: "Reverse Effort",
         description: "Sometimes the answer is to do the opposite. When stuck, try reversing your approach."
+    },
+    {
+        title: "Antifragility",
+        description: "Being in witness consciousness makes you flexible and unable to be victimized through ego attacks."
+    },
+    {
+        title: "Body as Tyrant",
+        description: "The body can become a master instead of servant, demanding cravings rather than creating joy from useful functions."
+    },
+    {
+        title: "Life as Game",
+        description: "The goal isn't to win but to keep playing. Winning means noticing parasitic games and not participating."
+    },
+    {
+        title: "Everything is Temporary",
+        description: "Like life on a cruise ship - either submit and lose yourself or realize it's all temporary and not real."
+    },
+    {
+        title: "Internal Locus",
+        description: "Be minimally important outside but maximally important inside - undemanding but discerning."
+    },
+    {
+        title: "Perfect Day Ritual",
+        description: "Having the same ideal day structure creates rhythm where everything works in unison."
+    },
+    {
+        title: "You Don't Have to Participate",
+        description: "You can choose not to play games where you don't like the rules - selective detachment from unconscious commitments."
+    },
+    {
+        title: "The Opposite",
+        description: "Everything turns out opposite. Focus on causes not consequences, see WHY things happen not just WHAT."
+    },
+    {
+        title: "Mental Silence",
+        description: "Peace comes from not engaging with negative thoughts. They're not interesting and only create chain reactions."
+    },
+    {
+        title: "Playing the Long Game",
+        description: "Look beyond immediate self-interest. See patterns and consequences that extend far into the future."
+    },
+    {
+        title: "Life's Brevity",
+        description: "We have only ~70 years to experience life, yet we waste it suffering and fighting our animal nature."
+    },
+    {
+        title: "Universal Complexity",
+        description: "Everything in the Universe becomes more complex over time - the game creates itself, becoming more interesting."
+    },
+    {
+        title: "Nirvana as Extinguishing",
+        description: "Liberation through extinguishing desires - path includes knowledge, morality, and meditation."
+    },
+    {
+        title: "Synchronicity Magic",
+        description: "Recording instances when wishes manifest - the universe responds to clear intentions."
+    },
+    {
+        title: "Imagination Prison",
+        description: "We project ourselves into imaginary worlds based on memories and fears - switch attention from screen to self."
+    },
+    {
+        title: "Natural Distribution",
+        description: "2% think, 3% think they think, 95% would rather die than think - Bernard Shaw."
+    },
+    {
+        title: "Klesha - Mental Ticks",
+        description: "Mental formations that poison consciousness like ticks injecting venom that lasts a lifetime."
+    },
+    {
+        title: "Freediving as Unity",
+        description: "Underwater loneliness transforms into unity - a dance to the music of the soul."
+    },
+    {
+        title: "Negotiating Without Offense",
+        description: "Game theory applied to life - everyone can do what they want but consider mutual benefit."
+    },
+    {
+        title: "No Rest Needed",
+        description: "When work is joy, you don't need rest from anything. Rest in cemetery is forbidden."
     }
 ];
 
@@ -100,17 +180,28 @@ function displayInsights() {
 
 // Initial display
 document.addEventListener('DOMContentLoaded', () => {
+    let intervalId;
+    
+    function startTimer() {
+        // Clear existing interval if any
+        if (intervalId) {
+            clearInterval(intervalId);
+        }
+        // Start new interval
+        intervalId = setInterval(displayInsights, 30000);
+    }
+    
+    // Initial display
     displayInsights();
+    startTimer();
     
-    // Change insights every 30 seconds
-    setInterval(displayInsights, 30000);
-    
-    // Also change on click
+    // Change on click and restart timer
     const philosophySection = document.querySelector('.philosophy-section');
     if (philosophySection) {
         philosophySection.addEventListener('click', (e) => {
             if (e.target.closest('#insights-container')) {
                 displayInsights();
+                startTimer(); // Restart the timer after manual click
             }
         });
     }
