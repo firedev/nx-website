@@ -197,14 +197,22 @@ const insights = [
   },
 ];
 
-function getRandomInsights(count = 4) {
-  const shuffled = [...insights].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
+let insightsQueue = [...insights];
+
+function getNextInsights(count = 4) {
+  if (insightsQueue.length < count) {
+    insightsQueue = [...insights].sort(() => 0.5 - Math.random());
+  }
+  
+  const selected = insightsQueue.slice(0, count);
+  insightsQueue = [...insightsQueue.slice(count), ...selected];
+  
+  return selected;
 }
 
 function displayInsights() {
   const container = document.getElementById('insights-container');
-  const selectedInsights = getRandomInsights(4);
+  const selectedInsights = getNextInsights(4);
 
   container.innerHTML = selectedInsights.map((insight) => `
         <div class="glass-effect rounded-lg p-4 transition-all duration-500">
