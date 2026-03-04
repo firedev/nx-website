@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>дКВ — Attention Deconcentration</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: #060608;
+    cursor: none;
+    user-select: none;
+  }
+  canvas {
+    display: block;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+  #fixation {
+    position: fixed;
+    top: 50%; left: 50%;
+    width: 4px; height: 4px;
+    margin: -2px 0 0 -2px;
+    border-radius: 50%;
+    background: rgba(180, 160, 140, 0.25);
+    z-index: 10;
+    pointer-events: none;
+  }
+  #instruction {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    font-size: clamp(14px, 2vw, 22px);
+    color: rgba(180, 160, 140, 0.5);
+    letter-spacing: 0.15em;
+    z-index: 10;
+    pointer-events: none;
+    transition: opacity 3s ease;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="fixation"></div>
+<div id="instruction">soften your gaze · stare at the center · see everything at once</div>
+<script>
+(() => {
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  const instruction = document.getElementById('instruction');
+
+  const MIN_ORBS = 1;
+  const MAX_ORBS = 5;
+  const BASE_RADIUS = 12;
+  const SPLIT_COOLDOWN = 3000;
+  const MERGE_DISTANCE = 30;
+  const INITIAL_SPLIT_TIME = 4000;
+  const INITIAL_SPLIT_COUNT = 2;
+  const SPEED_MIN = 40;
+  const SPEED_MAX = 80;
+  const CENTER_PULL_ZONE = 0.3;
+  const DAMPING_BASE = 0.96;
+
+  let W, H, dpr;
+  let orbs = [];
+  let startTime = 0;
+  let lastSplitTime = 0;
+  let initialSplitDone = false;
+  let launchIndex = 0;
+  let lastLaunchTime = 0;
+  const LAUNCH_INTERVAL = 1000;
+  const GUIDE_DURATION = 6000;
+  const FIRST_LAUNCH_DELAY = 6500;
+
+  function resize() {
+    dpr = window.devicePixelRatio || 1;
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function noise(x, y, t) {
+    return Math.sin(x * 0.003 + t * 0.7) * Math.cos(y * 0.004 + t * 0.5)
+         + Math.sin(x * 0.007 - t * 0.3) * Math.cos(y * 0.005 + t * 0.9)
+         + Math.sin((x + y) * 0.002 + t * 1.1) * 0.5;
+  }
+
+  class Orb {
+    constructor(x, y, opts = {}) {
+      this.x = x;
+      this.y = y;
+      this.vx = opts.vx || (Math.random() - 0.5) * 20;
+      this.vy = opts.vy || (Math.random() - 0.5) * 20;
+      this.radius = opts.radius || BASE_RADIUS;
+      this.targetRadius = this.radius;
+      this.hue = opts.hue || 20 + Math.random() * 30;
+      this.saturation = 65 + Math.random() * 20;
+      this.lightness = 65 + Math.random() * 15;
+      this.opacity = opts.opacity || 0;
+      this.targetOpacity = 1;
+      this.age = 0;
+      this.born = performance.now();
+      this.noiseOffsetX = Math.random() * 1000;
+      this.noiseOffsetY = Math.random() * 1000;
+      this.orbitTilt = opts.orbitTilt != null ? opts.orbitTilt : Math.random() * Math.PI;
+      this.orbitSpeed = opts.orbitSpeed || (0.3 + Math.random() * 0.3) * (Math.random() < 0.5 ? 1 : -1);
+      this.orbitSemiMajor = 0.85 + Math.random() * 0.1;
+      this.orbitSemiMinor = 0.08 + Math.random() * 0.15;
+      this.orbitPhase = opts.orbitPhase != null ? opts.orbitPhase : Math.random() * Math.PI * 2;
+      this.fadingOut = false;
+      this.dead = false;
+    }
+
+    update(dt, t) {
+      this.age += dt;
+      let theta = t * this.orbitSpeed + this.orbitPhase;
+      let cosT = Math.cos(this.orbitTilt);
+      let sinT = Math.sin(this.orbitTilt);
+      let ax = (W / 2 - 40) * this.orbitSemiMajor;
+      let ay = (H / 2 - 40) * this.orbitSemiMajor;
+      let bx = (W / 2 - 40) * this.orbitSemiMinor;
+      let by = (H / 2 - 40) * this.orbitSemiMinor;
+      let ex = Math.cos(theta);
+      let ey = Math.sin(theta);
+      let lx = cosT * ex * ax - sinT * ey * bx;
+      let ly = sinT * ex * ay + cosT * ey * by;
+      let nx = noise(this.noiseOffsetX, 0, t) * 20;
+      let ny = noise(0, this.noiseOffsetY, t + 100) * 20;
+      this.x = W / 2 + lx + nx;
+      this.y = H / 2 + ly + ny;
+      if (this.fadingOut) {
+        this.targetOpacity = 0;
+        if (this.opacity < 0.01) this.dead = true;
+      }
+      this.opacity += (this.targetOpacity - this.opacity) * Math.min(1, dt * 3);
+      this.radius += (this.targetRadius - this.radius) * Math.min(1, dt * 4);
+    }
+
+    draw(ctx) {
+      if (this.opacity < 0.005) return;
+      let r = this.radius;
+      let x = this.x;
+      let y = this.y;
+      let alpha = this.opacity;
+      let h = this.hue;
+      let s = this.saturation;
+      let l = this.lightness;
+      let layers = [
+        { scale: 6.0, a: alpha * 0.04, color: `hsla(${h}, ${s}%, ${l - 10}%, ` },
+        { scale: 3.5, a: alpha * 0.12, color: `hsla(${h}, ${s}%, ${l}%, ` },
+        { scale: 2.0, a: alpha * 0.3,  color: `hsla(${h}, ${s - 10}%, ${l + 10}%, ` },
+        { scale: 0.8, a: alpha * 0.9,  color: `hsla(${h}, ${s - 30}%, ${Math.min(95, l + 25)}%, ` },
+      ];
+      for (let layer of layers) {
+        let lr = r * layer.scale;
+        let grad = ctx.createRadialGradient(x, y, 0, x, y, lr);
+        grad.addColorStop(0, layer.color + layer.a + ')');
+        grad.addColorStop(1, layer.color + '0)');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(x, y, lr, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    split() {
+      let child = new Orb(this.x, this.y, {
+        radius: this.radius * (0.6 + Math.random() * 0.2),
+        hue: this.hue + (Math.random() - 0.5) * 10,
+        opacity: 0,
+      });
+      return child;
+    }
+
+    fadeOut() {
+      this.fadingOut = true;
+    }
+  }
+
+  function applyRepulsion(dt) {
+    for (let i = 0; i < orbs.length; i++) {
+      for (let j = i + 1; j < orbs.length; j++) {
+        let a = orbs[i];
+        let b = orbs[j];
+        let dx = b.x - a.x;
+        let dy = b.y - a.y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+        let minDist = (a.radius + b.radius) * 4;
+        if (dist < minDist && dist > 0.1) {
+          let force = ((minDist - dist) / minDist) * 60 * dt;
+          let nx = dx / dist;
+          let ny = dy / dist;
+          a.vx -= nx * force;
+          a.vy -= ny * force;
+          b.vx += nx * force;
+          b.vy += ny * force;
+        }
+      }
+    }
+  }
+
+  function tryMerge() {
+    let now = performance.now();
+    for (let i = 0; i < orbs.length; i++) {
+      for (let j = i + 1; j < orbs.length; j++) {
+        let a = orbs[i];
+        let b = orbs[j];
+        if (a.fadingOut || b.fadingOut) continue;
+        if (a.age < 2 || b.age < 2) continue;
+        let dx = b.x - a.x;
+        let dy = b.y - a.y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MERGE_DISTANCE && orbs.length > MIN_ORBS) {
+          let merged = new Orb((a.x + b.x) / 2, (a.y + b.y) / 2, {
+            vx: (a.vx + b.vx) / 2,
+            vy: (a.vy + b.vy) / 2,
+            radius: Math.min(BASE_RADIUS * 1.5, a.radius + b.radius * 0.5),
+            hue: (a.hue + b.hue) / 2,
+            opacity: 0,
+          });
+          a.fadeOut();
+          b.fadeOut();
+          orbs.push(merged);
+          return;
+        }
+      }
+    }
+  }
+
+  function trySplit(now) {
+    if (now - lastSplitTime < SPLIT_COOLDOWN) return;
+    let liveOrbs = orbs.filter(o => !o.fadingOut);
+    if (liveOrbs.length >= MAX_ORBS - 1) return;
+    if (Math.random() > 0.005) return;
+    let candidates = liveOrbs.filter(o => o.age > 2);
+    if (candidates.length === 0) return;
+    let orb = candidates[Math.floor(Math.random() * candidates.length)];
+    let child = orb.split();
+    orbs.push(child);
+    lastSplitTime = now;
+  }
+
+  function maintainPopulation() {
+    let liveOrbs = orbs.filter(o => !o.fadingOut);
+    if (liveOrbs.length < MIN_ORBS) {
+      let angle = Math.random() * Math.PI * 2;
+      let dist = Math.min(W, H) * 0.2;
+      orbs.push(new Orb(
+        W / 2 + Math.cos(angle) * dist,
+        H / 2 + Math.sin(angle) * dist,
+        { radius: BASE_RADIUS * (0.8 + Math.random() * 0.4) }
+      ));
+    }
+    let liveCount = orbs.filter(o => !o.fadingOut).length;
+    if (liveCount > MAX_ORBS) {
+      let oldest = orbs.filter(o => !o.fadingOut).sort((a, b) => a.born - b.born)[0];
+      if (oldest) oldest.fadeOut();
+    }
+  }
+
+  function drawBackground() {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = '#060608';
+    ctx.fillRect(0, 0, W, H);
+    let grad = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.min(W, H) * 0.5);
+    grad.addColorStop(0, 'rgba(30, 22, 15, 0.15)');
+    grad.addColorStop(1, 'rgba(6, 6, 8, 0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function init() {
+    startTime = performance.now();
+    orbs = [];
+    setTimeout(() => {
+      instruction.style.opacity = '0';
+    }, 6000);
+  }
+
+  let lastFrame = 0;
+
+  function frame(now) {
+    requestAnimationFrame(frame);
+    if (!lastFrame) { lastFrame = now; return; }
+    let dt = Math.min((now - lastFrame) / 1000, 0.05);
+    lastFrame = now;
+    let elapsed = now - startTime;
+    let t = now / 1000;
+    if (!initialSplitDone) {
+      if (elapsed > FIRST_LAUNCH_DELAY && launchIndex < INITIAL_SPLIT_COUNT && now - lastLaunchTime > LAUNCH_INTERVAL) {
+        let tilt = (Math.PI / INITIAL_SPLIT_COUNT) * launchIndex;
+        let phase = -t * (0.3 + Math.random() * 0.3);
+        let speed = (0.3 + Math.random() * 0.3) * (Math.random() < 0.5 ? 1 : -1);
+        orbs.push(new Orb(W / 2, H / 2, {
+          radius: BASE_RADIUS * (0.8 + Math.random() * 0.4),
+          hue: 25 + Math.random() * 25,
+          opacity: 0,
+          orbitTilt: tilt,
+          orbitPhase: Math.PI / 2 - t * speed,
+          orbitSpeed: speed,
+        }));
+        lastLaunchTime = now;
+        launchIndex++;
+        if (launchIndex >= INITIAL_SPLIT_COUNT) {
+          initialSplitDone = true;
+          lastSplitTime = now;
+        }
+      }
+    }
+    for (let orb of orbs) {
+      orb.update(dt, t);
+    }
+    applyRepulsion(dt);
+    if (initialSplitDone) {
+      tryMerge();
+      trySplit(now);
+      maintainPopulation();
+    }
+    orbs = orbs.filter(o => !o.dead);
+    drawBackground();
+    if (elapsed < GUIDE_DURATION + 1000) {
+      let progress = Math.min(1, elapsed / GUIDE_DURATION);
+      let maxR = Math.min(W, H) * 0.25;
+      let r = maxR * (1 - progress * progress) + 2;
+      let alpha = 1 - progress;
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.beginPath();
+      ctx.arc(W / 2, H / 2, r, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(180, 160, 140, ${alpha * 0.3})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+    ctx.globalCompositeOperation = 'lighter';
+    for (let orb of orbs) {
+      orb.draw(ctx);
+    }
+  }
+
+  init();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
