@@ -116,8 +116,8 @@
       this.vy = opts.vy || (Math.random() - 0.5) * 20;
       this.radius = opts.radius || BASE_RADIUS;
       this.targetRadius = this.radius;
-      this.hue = opts.hue || 20 + Math.random() * 30;
-      this.saturation = 65 + Math.random() * 20;
+      this.hue = opts.hue || [15, 35, 55, 180, 220, 280, 330][Math.floor(Math.random() * 7)];
+      this.saturation = 75 + Math.random() * 20;
       this.lightness = 65 + Math.random() * 15;
       this.opacity = opts.opacity || 0;
       this.targetOpacity = 1;
