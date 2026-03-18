@@ -235,7 +235,7 @@ const insights = [
   {
     title: "The day only gets better",
     description:
-      "Notice how the day only gets better. When you notice - say it. ",
+      "Notice how the day only gets better. When you notice - say it.",
   },
   {
     title: "Refuse to suffer",
