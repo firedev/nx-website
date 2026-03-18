@@ -205,7 +205,7 @@ const insights = [
   {
     title: "Flow state",
     description:
-      "Flow is when spirit and mind unite. The stop resisting what should happen.",
+      "Flow is when spirit and mind unite. They stop resisting what should happen.",
   },
   {
     title: "The middle way",
@@ -215,7 +215,7 @@ const insights = [
   {
     title: "World as perception",
     description:
-      "The cornerstone of therapy is realizing the world is exactly as you perceive it.",
+      "The world is exactly as you perceive it. Change perception, change world.",
   },
   {
     title: "Narrative control",
