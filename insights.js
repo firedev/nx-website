@@ -262,8 +262,8 @@ function displayInsights() {
 
   container.innerHTML = selectedInsights
     .map(
-      (insight) => `
-        <article class="glass insight-card">
+      (insight, i) => `
+        <article class="insight-card insight-enter" style="animation-delay: ${i * 0.08}s">
             <h3>${insight.title}</h3>
             <p>${insight.description}</p>
         </article>
