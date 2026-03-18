@@ -7,17 +7,17 @@ const insights = [
   {
     title: "The earthsuit",
     description:
-      "We watch life on the internal screen of our body-mind suit. Don't be its slave.",
+      "We watch life on the internal screen of a body-mind suit. Don't become its slave.",
   },
   {
     title: "Think forward",
     description:
-      "True thoughts create new reality, not evaluate the past. Think forward toward creation, not backward toward judgment.",
+      "True thoughts create reality, not evaluate the past. Think forward toward creation, not backward toward judgment.",
   },
   {
     title: "Projector vs receiver",
     description:
-      "Be the projector of reality, not a receiver. Create world instead of reacting to it.",
+      "Be the projector of reality, not a receiver. Create the world instead of reacting to it.",
   },
   {
     title: "Suffering is optional",
@@ -66,7 +66,7 @@ const insights = [
   },
   {
     title: "It's always today",
-    description: "Tomorrow doesn't exist, be in full contact with today. ",
+    description: "Tomorrow doesn't exist, be in full contact with today.",
   },
   {
     title: "Witness consciousness",
@@ -76,7 +76,7 @@ const insights = [
   {
     title: "Know thyself",
     description:
-      "The foundation of all wisdom. Self-awareness is the key to transformation.",
+      "Most people avoid self-knowledge because the truth is expensive.",
   },
   {
     title: "No burden",
@@ -91,7 +91,7 @@ const insights = [
   {
     title: "Integration over information",
     description:
-      "What matters isn't how much you learn, but how much you integrate. Apply what you discover.",
+      "Knowing without doing is just entertainment.",
   },
   {
     title: "Reverse effort",
@@ -101,7 +101,7 @@ const insights = [
   {
     title: "Antifragility",
     description:
-      "Witness consciousness makes you flexible and unable to be victimized through ego attacks.",
+      "When you watch from the witness seat, nothing lands.",
   },
   {
     title: "Body as tyrant",
@@ -126,7 +126,7 @@ const insights = [
   {
     title: "Perfect day every day",
     description:
-      "Having the same ideal day structure creates rhythm where everything works in unison.",
+      "Same structure every day. Rhythm where everything works in unison.",
   },
   {
     title: "Strategic ignorance",
