@@ -114,6 +114,10 @@
         -webkit-font-smoothing: antialiased;
       }
 
+      .nowrap {
+        text-wrap: nowrap;
+      }
+
       .ocean-bg {
         position: fixed;
         inset: 0;
@@ -276,7 +280,7 @@
 
       .hero {
         text-align: center;
-        padding: 3rem 0 3.5rem;
+        padding: 6rem 3rem;
       }
 
       .hero-portrait {
@@ -316,7 +320,7 @@
       }
 
       .hero-bio {
-        margin-top: 1.5rem;
+        margin-top: 3rem;
         font-size: 1.15rem;
         line-height: 1.7;
         color: var(--text-mid);
@@ -778,8 +782,9 @@
         </p>
 
         <p class="hero-bio reveal reveal-d4">
-          Freediving is my tool. Software is my craft.<br />
-          Joy is the absence of fear.
+          <span class="nowrap"> Freediving is my tool.</span>
+          <span class="nowrap"> Software is my craft.</span><br />
+          <span class="nowrap">Joy is the absence of fear.</span>
         </p>
       </section>
 
