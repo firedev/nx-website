@@ -456,6 +456,15 @@
         font-weight: 300;
       }
 
+      .link-card-meta {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: var(--glow);
+        opacity: 0.6;
+        margin-top: 0.5rem;
+        font-weight: 400;
+      }
+
       .watch-section {
         padding-top: 3rem;
       }
@@ -487,64 +496,8 @@
         border: 0;
       }
 
-      .stats-row {
-        display: grid;
-        gap: 0.75rem;
-        margin-top: 0.75rem;
-      }
-
-      @media (min-width: 520px) {
-        .stats-row {
-          grid-template-columns: 1fr 0.72fr;
-        }
-      }
-
-      .stats-card {
-        border-radius: 1.25rem;
-        border: 1px solid var(--border);
-        background: var(--glass);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        padding: 1.75rem;
-      }
-
-      .stats-card h2 {
-        font-family: var(--font-display);
-        font-size: 2.25rem;
-        line-height: 1.1;
-        letter-spacing: -0.02em;
-      }
-
-      .stats-card p {
-        font-size: 1rem;
-        line-height: 1.7;
-        color: var(--text-dim);
-        margin-top: 0.5rem;
-        font-weight: 300;
-      }
-
-      .stat-line {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-        padding-top: 0.75rem;
-        margin-top: 0.75rem;
-        border-top: 1px solid var(--border);
-        font-size: 1rem;
-      }
-
-      .stat-line span:first-child {
-        color: var(--text-dim);
-      }
-
-      .stat-line span:last-child {
-        font-weight: 600;
-        color: var(--glow);
-        opacity: 0.85;
-      }
-
       .listen-card {
+        margin-top: 0.75rem;
         display: block;
         text-decoration: none;
         color: inherit;
@@ -827,6 +780,7 @@
             no fins
           </div>
           <p class="link-card-desc">Just you and the water. Nothing else.</p>
+          <p class="link-card-meta">Molchanovs Freediving Instructor. STA 6:15</p>
         </a>
 
         <a
@@ -917,37 +871,18 @@
           </div>
         </div>
 
-        <div class="stats-row">
-          <div class="stats-card">
-            <h2>Water as training ground</h2>
-            <p>Freediving exposes noise &mdash; then rewards calm precision.</p>
-            <div class="stat-line">
-              <span>Certification</span>
-              <span>Molchanovs Wave 3</span>
-            </div>
-            <div class="stat-line">
-              <span>Role</span>
-              <span>Instructor</span>
-            </div>
-            <div class="stat-line">
-              <span>Static apnea</span>
-              <span>6:15</span>
-            </div>
-          </div>
-
-          <a
-            href="https://soundcloud.com/nikolayx/nonromantic-mix-2025-08-20"
-            class="listen-card"
-          >
-            <div class="link-card-label">Listen</div>
-            <h2>Nonromantic Mix</h2>
-            <p>
-              DJ set recorded for Vibe Phuket. Late-night energy, tension, and
-              pulse.
-            </p>
-            <span class="listen-cta">Open SoundCloud</span>
-          </a>
-        </div>
+        <a
+          href="https://soundcloud.com/nikolayx/nonromantic-mix-2025-08-20"
+          class="listen-card"
+        >
+          <div class="link-card-label">Listen</div>
+          <h2>Nonromantic Mix</h2>
+          <p>
+            DJ set recorded for Vibe Phuket. Late-night energy, tension, and
+            pulse.
+          </p>
+          <span class="listen-cta">Open SoundCloud</span>
+        </a>
       </section>
 
       <div class="divider"></div>
