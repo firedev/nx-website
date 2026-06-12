@@ -9,11 +9,8 @@
       name="description"
       content="Freediving instructor, consciousness explorer, software developer. Freediving is my tool. Software is my craft. Joy is the absence of fear."
     />
-    <meta
-      name="keywords"
-      content="freediving, consciousness, joy, joy mining, Nikolay Ostrovsky, think forward, no fins, firedev"
-    />
     <meta name="author" content="Nikolay Ostrovsky" />
+    <meta name="theme-color" content="#040c14" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://nikolayx.com/" />
@@ -29,6 +26,8 @@
       property="og:image"
       content="https://nikolayx.com/social-preview.jpg"
     />
+    <meta property="og:image:width" content="1170" />
+    <meta property="og:image:height" content="680" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://nikolayx.com/" />
@@ -46,18 +45,16 @@
     />
 
     <link rel="canonical" href="https://nikolayx.com/" />
-    <link rel="icon" type="image/jpeg" href="social-preview.jpg" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="preload" as="image" href="ocean.jpeg" fetchpriority="high" />
+    <link rel="preload" as="image" href="portrait.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-
 
     <script type="application/ld+json">
       {
@@ -67,7 +64,7 @@
         "jobTitle": "Freediving Instructor and Software Developer",
         "description": "Consciousness explorer teaching freediving and building software.",
         "url": "https://nikolayx.com",
-        "image": "https://nikolayx.com/gopr3050_medium.jpg",
+        "image": "https://nikolayx.com/portrait.jpg",
         "sameAs": [
           "https://instagram.com/_nikolayx_",
           "https://t.me/thinkforwardru",
@@ -115,16 +112,17 @@
         -webkit-font-smoothing: antialiased;
       }
 
-      .nowrap {
-        text-wrap: nowrap;
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--glow);
+        outline-offset: 3px;
       }
 
       .ocean-bg {
         position: fixed;
         inset: 0;
         z-index: 0;
-        background: url("F1220916-9097-46EA-A967-ADA8840AEEAD.jpeg") center /
-          cover no-repeat;
+        background: url("ocean.jpeg") center / cover no-repeat;
       }
 
       .ocean-bg::after {
@@ -281,7 +279,7 @@
 
       .hero {
         text-align: center;
-        padding: 6rem 3rem;
+        padding: clamp(3.5rem, 10vw, 6rem) 1rem 6rem;
       }
 
       .hero-portrait {
@@ -297,12 +295,13 @@
       }
 
       .hero-eyebrow {
+        font-size: 0.8rem;
         font-weight: 600;
         letter-spacing: 0.3em;
         text-transform: uppercase;
         color: var(--glow);
         opacity: 0.7;
-        margin-bottom: 1rem;
+        margin-top: 2rem;
       }
 
       .hero-name {
@@ -322,7 +321,7 @@
 
       .hero-bio {
         margin-top: 3rem;
-        font-size: 1.15rem;
+        font-size: clamp(1rem, 3.2vw, 1.15rem);
         line-height: 1.7;
         color: var(--text-mid);
         max-width: 460px;
@@ -331,31 +330,8 @@
         font-weight: 300;
       }
 
-      .hero-tags {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-top: 1.75rem;
-      }
-
-      .hero-tag {
-        font-weight: 600;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        padding: 0.5rem 1.25rem;
-        border: 1px solid var(--border);
-        border-radius: 100px;
-        color: var(--text-dim);
-        background: var(--glass-light);
-        transition:
-          border-color 0.3s,
-          color 0.3s;
-      }
-
-      .hero-tag:hover {
-        border-color: var(--border-hover);
-        color: var(--text-mid);
+      .hero-bio span {
+        display: inline-block;
       }
 
       .divider {
@@ -369,13 +345,36 @@
         margin: 0.5rem 0;
       }
 
+      nav + .divider,
+      section + .divider {
+        margin-top: 2rem;
+      }
+
       .section-label {
+        font-size: 0.8rem;
         font-weight: 600;
         letter-spacing: 0.3em;
         text-transform: uppercase;
         color: var(--text-dim);
         margin-bottom: 1.25rem;
         margin-left: 1.75rem;
+      }
+
+      .icon {
+        width: 1.2rem;
+        height: 1.2rem;
+        flex-shrink: 0;
+        fill: none;
+        stroke: var(--glow);
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        opacity: 0.5;
+        transition: opacity 0.3s;
+      }
+
+      .link-card:hover .icon {
+        opacity: 0.85;
       }
 
       .links-grid {
@@ -421,19 +420,16 @@
         box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
       }
 
+      .link-card:active {
+        transform: translateY(0) scale(0.995);
+      }
+
       .link-card:hover::before {
         opacity: 1;
       }
 
-      .link-card-row {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: 1rem;
-        position: relative;
-      }
-
       .link-card-label {
+        font-size: 0.75rem;
         font-weight: 600;
         letter-spacing: 0.25em;
         text-transform: uppercase;
@@ -449,18 +445,7 @@
         letter-spacing: -0.01em;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-      }
-
-      .link-card-title .material-icons {
-        font-size: 1.25rem;
-        color: var(--glow);
-        opacity: 0.5;
-        transition: opacity 0.3s;
-      }
-
-      .link-card:hover .link-card-title .material-icons {
-        opacity: 0.8;
+        gap: 0.6rem;
       }
 
       .link-card-desc {
@@ -579,6 +564,10 @@
         transform: translateY(-2px);
       }
 
+      .listen-card:active {
+        transform: translateY(0) scale(0.995);
+      }
+
       .listen-card h2 {
         font-family: var(--font-display);
         font-size: 2.25rem;
@@ -598,6 +587,7 @@
       .listen-cta {
         display: inline-block;
         margin-top: 1.25rem;
+        font-size: 0.75rem;
         font-weight: 600;
         letter-spacing: 0.25em;
         text-transform: uppercase;
@@ -663,6 +653,7 @@
         background: var(--glass-light);
         color: var(--text-dim);
         font-family: var(--font-body);
+        font-size: 0.75rem;
         font-weight: 600;
         letter-spacing: 0.2em;
         text-transform: uppercase;
@@ -678,6 +669,10 @@
         color: var(--text);
       }
 
+      .refresh-btn:active {
+        transform: scale(0.97);
+      }
+
       .countdown-pip {
         display: inline-flex;
         align-items: center;
@@ -689,6 +684,7 @@
         color: var(--glow);
         font-weight: 700;
         letter-spacing: 0;
+        font-variant-numeric: tabular-nums;
       }
 
       .insights-grid {
@@ -756,6 +752,31 @@
         }
       }
 
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        .caustics,
+        .depth-line::before {
+          animation: none;
+        }
+
+        .reveal,
+        .insight-enter {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+
+        .link-card,
+        .listen-card,
+        .insight-card,
+        .refresh-btn {
+          transition: none;
+        }
+      }
+
       ::selection {
         background: rgba(79, 195, 247, 0.25);
         color: var(--text);
@@ -772,112 +793,107 @@
     <main class="page">
       <section class="hero">
         <img
-          src="gopr3050_medium.jpg"
+          src="portrait.jpg"
           alt="Portrait of Nikolay Ostrovsky"
+          width="110"
+          height="128"
+          fetchpriority="high"
           class="hero-portrait reveal reveal-d1"
         />
         <h1 class="hero-name reveal reveal-d3">
           Nikolay<br /><em>Ostrovsky</em>
         </h1>
 
-        <p class="hero-eyebrow reveal reveal-d2" style="margin-top: 2rem">
+        <p class="hero-eyebrow reveal reveal-d2">
           Freedom · Consciousness · Joy
         </p>
 
         <p class="hero-bio reveal reveal-d4">
-          <span class="nowrap"> Freediving is my tool.</span>
-          <span class="nowrap"> Software is my craft.</span><br />
-          <span class="nowrap">Joy is the absence of fear.</span>
+          <span>Freediving is my tool.</span>
+          <span>Software is my craft.</span><br />
+          <span>Joy is the absence of fear.</span>
         </p>
       </section>
 
       <div class="divider reveal reveal-d5"></div>
 
-      <nav class="links-grid">
+      <nav class="links-grid" aria-label="Links">
         <p class="section-label reveal reveal-d5">Links</p>
 
         <a href="https://nofins.com" class="link-card reveal reveal-d5">
-          <div class="link-card-row">
-            <div>
-              <div class="link-card-label">Practice</div>
-              <div class="link-card-title">
-                <span class="material-icons">water_drop</span>no fins
-              </div>
-              <p class="link-card-desc">
-                Just you and the water. Nothing else.
-              </p>
-            </div>
+          <div class="link-card-label">Practice</div>
+          <div class="link-card-title">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+            </svg>
+            no fins
           </div>
+          <p class="link-card-desc">Just you and the water. Nothing else.</p>
         </a>
 
         <a
           href="https://thinkforward.academy"
           class="link-card reveal reveal-d6"
         >
-          <div class="link-card-row">
-            <div>
-              <div class="link-card-label">Writing</div>
-              <div class="link-card-title">
-                <span class="material-icons">psychology</span>think→forward
-              </div>
-              <p class="link-card-desc">
-                Philosophy, models, and ideas behind the practice.
-              </p>
-            </div>
+          <div class="link-card-label">Writing</div>
+          <div class="link-card-title">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+            </svg>
+            think→forward
           </div>
+          <p class="link-card-desc">
+            Philosophy, models, and ideas behind the practice.
+          </p>
         </a>
 
         <a href="https://firedev.com" class="link-card reveal reveal-d6">
-          <div class="link-card-row">
-            <div>
-              <div class="link-card-label">Build</div>
-              <div class="link-card-title">
-                <span class="material-icons">code</span>fire development
-              </div>
-              <p class="link-card-desc">
-                Software, systems, and the craft of building things.
-              </p>
-            </div>
+          <div class="link-card-label">Build</div>
+          <div class="link-card-title">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <polyline points="16 18 22 12 16 6" />
+              <polyline points="8 6 2 12 8 18" />
+            </svg>
+            fire development
           </div>
+          <p class="link-card-desc">
+            Software, systems, and the craft of building things.
+          </p>
         </a>
 
         <a
           href="https://instagram.com/_nikolayx_"
           class="link-card reveal reveal-d7"
         >
-          <div class="link-card-row">
-            <div>
-              <div class="link-card-label">Visual log</div>
-              <div class="link-card-title">
-                <span class="material-icons">photo_camera</span>@_nikolayx_
-              </div>
-              <p class="link-card-desc">
-                Ocean, movement, and daily fragments.
-              </p>
-            </div>
+          <div class="link-card-label">Visual log</div>
+          <div class="link-card-title">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+              />
+              <circle cx="12" cy="13" r="4" />
+            </svg>
+            @_nikolayx_
           </div>
+          <p class="link-card-desc">Ocean, movement, and daily fragments.</p>
         </a>
 
-        <a
-          href="https://t.me/thinkforwardru"
-          class="link-card reveal reveal-d7"
-        >
-          <div class="link-card-row">
-            <div>
-              <div class="link-card-label">Russian</div>
-              <div class="link-card-title">
-                <span class="material-icons">telegram</span>think→forward на
-                русском
-              </div>
-              <p class="link-card-desc">
-                Русскоязычный канал с идеями и обновлениями.
-              </p>
-            </div>
+        <a href="https://t.me/thinkforwardru" class="link-card reveal reveal-d7">
+          <div class="link-card-label">Russian</div>
+          <div class="link-card-title">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <line x1="22" y1="2" x2="11" y2="13" />
+              <polygon points="22 2 15 22 11 13 2 9 22 2" />
+            </svg>
+            think→forward на русском
           </div>
+          <p class="link-card-desc">
+            Русскоязычный канал с идеями и обновлениями.
+          </p>
         </a>
       </nav>
 
-      <div class="divider" style="margin-top: 2rem"></div>
+      <div class="divider"></div>
 
       <section class="watch-section">
         <p class="section-label">Watch</p>
@@ -885,35 +901,19 @@
         <div class="video-grid">
           <div class="video-wrap">
             <iframe
-              src="https://www.youtube.com/embed/S5Ir00rigL0"
+              src="https://www.youtube-nocookie.com/embed/S5Ir00rigL0"
               title="Wave 3 certification video"
               loading="lazy"
-              allow="
-                accelerometer;
-                autoplay;
-                clipboard-write;
-                encrypted-media;
-                gyroscope;
-                picture-in-picture;
-                web-share;
-              "
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
             ></iframe>
           </div>
           <div class="video-wrap">
             <iframe
-              src="https://www.youtube.com/embed/XvEFILdR5dk"
+              src="https://www.youtube-nocookie.com/embed/XvEFILdR5dk"
               title="Freediving video"
               loading="lazy"
-              allow="
-                accelerometer;
-                autoplay;
-                clipboard-write;
-                encrypted-media;
-                gyroscope;
-                picture-in-picture;
-                web-share;
-              "
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
             ></iframe>
           </div>
@@ -922,9 +922,7 @@
         <div class="stats-row">
           <div class="stats-card">
             <h2>Water as training ground</h2>
-            <p>
-              Freediving exposes noise &mdash; then rewards calm precision.
-            </p>
+            <p>Freediving exposes noise &mdash; then rewards calm precision.</p>
             <div class="stat-line">
               <span>Certification</span>
               <span>Molchanovs Wave 3</span>
@@ -954,7 +952,7 @@
         </div>
       </section>
 
-      <div class="divider" style="margin-top: 2rem"></div>
+      <div class="divider"></div>
 
       <section class="joy-section">
         <p class="section-label">Refresh</p>
@@ -965,9 +963,16 @@
               Short reminders from the deeper end. Tap to refresh.
             </p>
           </div>
-          <button id="refresh-insights" type="button" class="refresh-btn">
+          <button
+            id="refresh-insights"
+            type="button"
+            class="refresh-btn"
+            aria-label="Show the next set of insights"
+          >
             <span>Next set</span>
-            <span id="countdown" class="countdown-pip">30</span>
+            <span id="countdown" class="countdown-pip" aria-hidden="true"
+              >30</span
+            >
           </button>
         </div>
 
@@ -979,6 +984,6 @@
       </section>
     </main>
 
-    <script src="insights.js?v=fbdcf342"></script>
+    <script src="insights.js?v=2"></script>
   </body>
 </html>

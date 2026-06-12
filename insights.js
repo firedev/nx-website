@@ -243,102 +243,81 @@ const insights = [
   },
 ];
 
-let insightsQueue = [...insights];
+const SET_SIZE = 4;
+const REFRESH_SECONDS = 30;
 
-function getNextInsights(count = 4) {
-  if (insightsQueue.length < count) {
-    insightsQueue = [...insights].sort(() => 0.5 - Math.random());
+function shuffle(array) {
+  const result = [...array];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
   }
-
-  const selected = insightsQueue.slice(0, count);
-  insightsQueue = [...insightsQueue.slice(count), ...selected];
-
-  return selected;
+  return result;
 }
 
-function displayInsights() {
-  const container = document.getElementById("insights-container");
-  const selectedInsights = getNextInsights(4);
+let queue = [...insights];
 
-  container.innerHTML = selectedInsights
-    .map(
-      (insight, i) => `
+function nextInsights() {
+  if (queue.length < SET_SIZE) {
+    const leftover = queue;
+    queue = [
+      ...leftover,
+      ...shuffle(insights.filter((insight) => !leftover.includes(insight))),
+    ];
+  }
+  return queue.splice(0, SET_SIZE);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("insights-container");
+  const countdownEl = document.getElementById("countdown");
+  const refreshButton = document.getElementById("refresh-insights");
+  let secondsLeft = REFRESH_SECONDS;
+  let timerId = null;
+
+  function render() {
+    container.innerHTML = nextInsights()
+      .map(
+        (insight, i) => `
         <article class="insight-card insight-enter" style="animation-delay: ${i * 0.08}s">
             <h3>${insight.title}</h3>
             <p>${insight.description}</p>
         </article>
     `,
-    )
-    .join("");
-}
-
-// Initial display
-document.addEventListener("DOMContentLoaded", () => {
-  let intervalId;
-  let countdownIntervalId;
-  let secondsLeft = 30;
-
-  function updateCountdown() {
-    const countdownEl = document.getElementById("countdown");
-    if (countdownEl) {
-      // Use requestAnimationFrame for smoother updates on iOS
-      requestAnimationFrame(() => {
-        countdownEl.textContent = secondsLeft;
-      });
-    }
+      )
+      .join("");
   }
 
-  function startTimer() {
-    // Clear existing intervals if any
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
-    if (countdownIntervalId) {
-      clearInterval(countdownIntervalId);
-    }
-
-    // Reset countdown
-    secondsLeft = 30;
-    updateCountdown();
-
-    // Start countdown interval (updates every second)
-    countdownIntervalId = setInterval(() => {
+  function restartTimer() {
+    clearInterval(timerId);
+    secondsLeft = REFRESH_SECONDS;
+    countdownEl.textContent = secondsLeft;
+    timerId = setInterval(() => {
       secondsLeft -= 1;
-      if (secondsLeft < 0) {
-        secondsLeft = 30;
+      if (secondsLeft <= 0) {
+        render();
+        secondsLeft = REFRESH_SECONDS;
       }
-      updateCountdown();
+      countdownEl.textContent = secondsLeft;
     }, 1000);
-
-    // Start refresh interval
-    intervalId = setInterval(() => {
-      displayInsights();
-      secondsLeft = 30;
-    }, 30000);
   }
 
-  // Initial display
-  displayInsights();
-  startTimer();
-
-  // Handle refresh button click with touch support
-  const refreshButton = document.getElementById("refresh-insights");
-  if (refreshButton) {
-    const handleRefresh = (e) => {
-      e.preventDefault();
-      displayInsights();
-      startTimer(); // Restart the timer after manual click
-    };
-
-    refreshButton.addEventListener("click", handleRefresh);
+  function refresh() {
+    render();
+    restartTimer();
   }
 
-  // Handle click on insights container
-  const insightsContainer = document.getElementById("insights-container");
-  if (insightsContainer) {
-    insightsContainer.addEventListener("click", () => {
-      displayInsights();
-      startTimer(); // Restart the timer after manual click
-    });
-  }
+  render();
+  restartTimer();
+
+  refreshButton.addEventListener("click", refresh);
+  container.addEventListener("click", refresh);
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      clearInterval(timerId);
+    } else {
+      restartTimer();
+    }
+  });
 });
