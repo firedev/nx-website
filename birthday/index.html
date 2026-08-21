@@ -388,6 +388,18 @@
         );
       }
 
+      .day-mon .day-title em {
+        color: var(--text-dim);
+      }
+
+      .day-mon .t-list::before {
+        background: linear-gradient(
+          180deg,
+          rgba(245, 199, 106, 0.3),
+          transparent
+        );
+      }
+
       .t-item {
         position: relative;
         padding: 0 0 2.5rem;
@@ -865,13 +877,27 @@
             </p>
           </li>
 
+        </ol>
+      </section>
+
+      <div class="divider"></div>
+
+      <section class="day day-mon" aria-labelledby="mon-title">
+        <div class="day-head">
+          <h2 id="mon-title" class="day-title">
+            Monday <em>we surface</em>
+          </h2>
+        </div>
+
+        <ol class="t-list">
           <li class="t-item t-dim">
             <h3 class="t-head">
-              <span class="t-time">Monday 12:00</span> Checkout
+              <span class="t-time">12:00</span> Checkout
             </h3>
             <p class="t-desc">
-              Sleep the weekend off at the villa. We hand back the keys at
-              noon.
+              Sleep the weekend off, then hand back the keys at noon.
+              Collect your USB sticks, your dry clothes and your stories.
+              The villa keeps nothing.
             </p>
           </li>
         </ol>
