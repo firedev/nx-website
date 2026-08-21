@@ -340,6 +340,21 @@
         font-weight: 600;
       }
 
+      .hero-bio a {
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-color: rgba(79, 195, 247, 0.35);
+        text-underline-offset: 3px;
+        transition:
+          color 0.3s,
+          text-decoration-color 0.3s;
+      }
+
+      .hero-bio a:hover {
+        color: var(--text);
+        text-decoration-color: rgba(79, 195, 247, 0.7);
+      }
+
       .divider {
         height: 1px;
         background: linear-gradient(
@@ -772,9 +787,13 @@
         </p>
 
         <p class="hero-bio hero-bio-about reveal reveal-d5">
-          Molchanovs freediving instructor. Software developer with twenty
-          years of shipping products. I live in Phuket, Thailand, teach people
-          to feel at home underwater, and write about how the mind works.
+          <a href="https://nofins.com">Molchanovs freediving instructor</a>.
+          <a href="https://firedev.com"
+            >Software developer with twenty years of shipping products</a
+          >. I live in Phuket, Thailand, teach people to feel at home
+          underwater, and
+          <a href="https://thinkforward.academy">write</a> about
+          <a href="https://nonduality.today">how the mind works</a>.
         </p>
       </section>
 
