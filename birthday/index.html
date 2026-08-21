@@ -576,6 +576,13 @@
         gap: 1.5rem 0.5rem;
       }
 
+      .crew-contact {
+        grid-column: 2 / -1;
+        align-self: center;
+        justify-self: start;
+        padding-left: 0.5rem;
+      }
+
       .crew {
         display: flex;
         flex-direction: column;
@@ -1041,19 +1048,16 @@
             The crew
           </h2>
           <p>For questions, rides and directions, call Nick.</p>
-          <div class="nama-row">
-            <img
-              src="avatars/nikolayx.jpg"
-              alt=""
-              width="64"
-              height="64"
-              loading="lazy"
-              class="crew-face"
-              style="margin-bottom: 0"
-            />
-            <div>
+          <div class="crew-grid">
+            <a href="https://www.instagram.com/_nikolayx_/" class="crew">
+              <img src="avatars/nikolayx.jpg" alt="" width="64" height="64" loading="lazy" class="crew-face" />
+              <span class="crew-name">Nick</span>
+              <span class="crew-handle">@_nikolayx_</span>
+              <span class="crew-role">The birthday one</span>
+            </a>
+            <div class="crew-contact">
               <a href="tel:+66873766365" class="contact-phone"
-                >Nick +66 87 376 6365</a
+                >+66 87 376 6365</a
               >
               <p class="contact-note">
                 <a href="https://wa.me/66873766365"
@@ -1070,24 +1074,8 @@
                     <polygon points="22 2 15 22 11 13 2 9 22 2" /></svg
                   >Telegram</a
                 >
-                ·
-                <a href="https://www.instagram.com/_nikolayx_/"
-                  ><svg class="mini-icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <rect x="2" y="2" width="20" height="20" rx="5" />
-                    <circle cx="12" cy="12" r="4" />
-                    <line x1="17.5" y1="6.5" x2="17.5" y2="6.5" /></svg
-                  >Instagram</a
-                >
               </p>
             </div>
-          </div>
-          <div class="crew-grid">
-            <a href="https://www.instagram.com/_nikolayx_/" class="crew">
-              <img src="avatars/nikolayx.jpg" alt="" width="64" height="64" loading="lazy" class="crew-face" />
-              <span class="crew-name">Nick</span>
-              <span class="crew-handle">@_nikolayx_</span>
-              <span class="crew-role">The birthday one</span>
-            </a>
             <a href="https://www.instagram.com/annie.vasilenko/" class="crew">
               <img src="avatars/annie.vasilenko.jpg" alt="" width="64" height="64" loading="lazy" class="crew-face" />
               <span class="crew-name">Anya</span>
