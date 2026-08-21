@@ -453,6 +453,42 @@
         padding-right: 0.35rem;
       }
 
+      .live-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        vertical-align: 0.2em;
+        margin-left: 0.5rem;
+        padding: 0.25rem 0.7rem;
+        border: 1px solid rgba(245, 199, 106, 0.45);
+        border-radius: 100px;
+        font-family: var(--font-body);
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--glow-warm);
+        white-space: nowrap;
+      }
+
+      .live-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #ff5f5f;
+        animation: live-pulse 1.6s ease-in-out infinite;
+      }
+
+      @keyframes live-pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.35;
+        }
+      }
+
       .t-desc {
         margin-top: 0.45rem;
         font-size: 1rem;
@@ -690,7 +726,8 @@
           scroll-behavior: auto;
         }
 
-        .caustics {
+        .caustics,
+        .live-dot {
           animation: none;
         }
 
@@ -921,12 +958,14 @@
           <li class="t-item t-warm">
             <h3 class="t-head">
               <span class="t-time">18:00</span> Exclusive ecstatic dance
+              <span class="live-pill"><span class="live-dot"></span>Live
+                stream</span>
             </h3>
             <p class="t-desc">
               A set by
-              <a href="https://www.instagram.com/monycmusic/">Mønyc Music</a>,
-              streamed live from the villa. The weekend ends where it
-              peaked.
+              <a href="https://www.instagram.com/monycmusic/">Mønyc Music</a>
+              from the villa, streamed live: join from anywhere in the
+              world. The weekend ends where it peaked.
             </p>
           </li>
 
