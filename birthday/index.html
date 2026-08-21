@@ -429,7 +429,9 @@
         max-width: 480px;
       }
 
-      .t-desc a {
+      .t-desc a,
+      .contact-note a,
+      .p-card > p a {
         color: var(--text-mid);
         text-decoration: underline;
         text-decoration-color: var(--border-hover);
@@ -437,7 +439,9 @@
         transition: color 0.3s;
       }
 
-      .t-desc a:hover {
+      .t-desc a:hover,
+      .contact-note a:hover,
+      .p-card > p a:hover {
         color: var(--text);
       }
 
@@ -508,24 +512,68 @@
         margin-top: 1.25rem;
       }
 
-      .contact-row {
-        margin-top: 1.25rem;
+      .nama-row {
         display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem 2.5rem;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1.25rem;
       }
 
-      .contact {
-        min-width: 200px;
+      .crew-grid {
+        margin-top: 1.75rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+        gap: 1.5rem 0.5rem;
       }
 
-      .contact-name {
-        font-size: 0.75rem;
+      .crew {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .crew-face {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid rgba(79, 195, 247, 0.25);
+        box-shadow: 0 0 0 3px rgba(4, 12, 20, 0.5);
+        margin-bottom: 0.5rem;
+        transition:
+          border-color 0.3s,
+          transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .crew:hover .crew-face {
+        border-color: rgba(245, 199, 106, 0.6);
+        transform: translateY(-2px);
+      }
+
+      .crew-name {
+        font-family: var(--font-display);
+        font-size: 1.15rem;
+        line-height: 1.2;
+      }
+
+      .crew-handle {
+        margin-top: 0.1rem;
+        font-size: 0.72rem;
+        font-weight: 400;
+        color: var(--text-dim);
+      }
+
+      .crew-role {
+        margin-top: 0.25rem;
+        font-size: 0.62rem;
         font-weight: 600;
-        letter-spacing: 0.25em;
+        letter-spacing: 0.18em;
         text-transform: uppercase;
-        color: var(--glow);
-        opacity: 0.6;
+        color: var(--glow-warm);
+        opacity: 0.8;
       }
 
       .contact-phone {
@@ -685,8 +733,9 @@
               <span class="t-time">14:00</span> Nikita takes the villa
             </h3>
             <p class="t-desc">
-              Check-in opens at two. Nikita lands first and rigs the sound
-              while we're still on the water.
+              Check-in opens at two. Nikita
+              (<a href="https://www.instagram.com/monycmusic/">Monyc</a>)
+              lands first and rigs the sound while we're still on the water.
             </p>
           </li>
 
@@ -734,8 +783,17 @@
           </li>
 
           <li class="t-item t-warm">
-            <h3 class="t-head"><span class="t-time">16:00</span> Sauna</h3>
-            <p class="t-desc">Off to the sauna to sweat Saturday out properly.</p>
+            <h3 class="t-head">
+              <span class="t-time">After noon</span> Sauna at Kaif
+            </h3>
+            <p class="t-desc">
+              We regroup at
+              <a
+                href="https://www.google.com/maps/search/?api=1&amp;query=Kaif+Phuket"
+                >Kaif Phuket</a
+              >
+              and sweat Saturday out properly.
+            </p>
           </li>
         </ol>
       </section>
@@ -752,9 +810,31 @@
             No wetsuit? Easy
           </h2>
           <p>
-            Antoine will set you up. Swing by NAMA Freediving on Friday the
-            28th and grab one for the weekend.
+            Antoine isn't coming himself, but he'll set you up — swing by
+            NAMA Freediving on Friday the 28th and grab one for the weekend.
           </p>
+          <div class="nama-row">
+            <img
+              src="avatars/namafreediving.jpg"
+              alt="NAMA Freediving"
+              width="64"
+              height="64"
+              loading="lazy"
+              class="crew-face"
+              style="margin-bottom: 0"
+            />
+            <div>
+              <a href="tel:+66628898474" class="contact-phone"
+                >+66 62 889 8474</a
+              >
+              <p class="contact-note">
+                Antoine ·
+                <a href="https://www.instagram.com/namafreediving/"
+                  >@namafreediving</a
+                >
+              </p>
+            </div>
+          </div>
           <a
             href="https://maps.app.goo.gl/5DVK6hVzXfecCMYQ6"
             class="btn btn-ghost"
@@ -774,23 +854,69 @@
                 d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"
               />
             </svg>
-            Questions, rides, directions
+            The crew
           </h2>
-          <div class="contact-row">
-            <div class="contact">
-              <div class="contact-name">Nick</div>
-              <a href="tel:+66873766365" class="contact-phone"
-                >+66 87 376 6365</a
-              >
-              <p class="contact-note">The birthday one</p>
-            </div>
-            <div class="contact">
-              <div class="contact-name">Antoine</div>
-              <a href="tel:+66628898474" class="contact-phone"
-                >+66 62 889 8474</a
-              >
-              <p class="contact-note">Wetsuits · NAMA</p>
-            </div>
+          <p>
+            Questions, rides, directions — call Nick. The rest of these faces
+            you'll be seeing all weekend.
+          </p>
+          <a href="tel:+66873766365" class="contact-phone">+66 87 376 6365</a>
+          <div class="crew-grid">
+            <a href="https://www.instagram.com/_nikolayx_/" class="crew">
+              <img src="avatars/_nikolayx_.jpg" alt="" width="64" height="64" loading="lazy" class="crew-face" />
+              <span class="crew-name">Nick</span>
+              <span class="crew-handle">@_nikolayx_</span>
+              <span class="crew-role">The birthday one</span>
+            </a>
+            <a href="https://www.instagram.com/annie.vasilenko/" class="crew">
+              <img src="avatars/annie.vasilenko.jpg" alt="" width="64" height="64" loading="lazy" class="crew-face" />
+              <span class="crew-name">Anya</span>
+              <span class="crew-handle">@annie.vasilenko</span>
+              <span class="crew-role">The Anya</span>
+            </a>
+            <a href="https://www.instagram.com/zenupl8/" class="crew">
+              <img src="avatars/zenupl8.jpg" alt="" width="64" height="64" loading="lazy" class="crew-face" />
+              <span class="crew-name">Zen</span>
+              <span class="crew-handle">@zenupl8</span>
+              <span class="crew-role">The boat</span>
+            </a>
+            <a href="https://www.instagram.com/monycmusic/" class="crew">
+              <img src="avatars/monycmusic.jpg" alt="" width="64" height="64" loading="lazy" class="crew-face" />
+              <span class="crew-name">Nikita</span>
+              <span class="crew-handle">@monycmusic</span>
+              <span class="crew-role">Sound</span>
+            </a>
+            <a href="https://www.instagram.com/nastya.palma/" class="crew">
+              <img src="avatars/nastya.palma.jpg" alt="" width="64" height="64" loading="lazy" class="crew-face" />
+              <span class="crew-name">Nastya</span>
+              <span class="crew-handle">@nastya.palma</span>
+              <span class="crew-role">Photos</span>
+            </a>
+            <a href="https://www.instagram.com/priya_sethi/" class="crew">
+              <img src="avatars/priya_sethi.jpg" alt="" width="64" height="64" loading="lazy" class="crew-face" />
+              <span class="crew-name">Priya</span>
+              <span class="crew-handle">@priya_sethi</span>
+            </a>
+            <a href="https://www.instagram.com/tobias.muehl/" class="crew">
+              <img src="avatars/tobias.muehl.jpg" alt="" width="64" height="64" loading="lazy" class="crew-face" />
+              <span class="crew-name">Tobias</span>
+              <span class="crew-handle">@tobias.muehl</span>
+            </a>
+            <a href="https://www.instagram.com/ploypiyamon/" class="crew">
+              <img src="avatars/ploypiyamon.jpg" alt="" width="64" height="64" loading="lazy" class="crew-face" />
+              <span class="crew-name">Ploy</span>
+              <span class="crew-handle">@ploypiyamon</span>
+            </a>
+            <a href="https://www.instagram.com/meblondinya/" class="crew">
+              <img src="avatars/meblondinya.jpg" alt="" width="64" height="64" loading="lazy" class="crew-face" />
+              <span class="crew-name">Je Ly</span>
+              <span class="crew-handle">@meblondinya</span>
+            </a>
+            <a href="https://www.instagram.com/ronniebee1990/" class="crew">
+              <img src="avatars/ronniebee1990.jpg" alt="" width="64" height="64" loading="lazy" class="crew-face" />
+              <span class="crew-name">Ronnie</span>
+              <span class="crew-handle">@ronniebee1990</span>
+            </a>
           </div>
         </div>
       </section>
