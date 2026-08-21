@@ -433,9 +433,11 @@
       .contact-note a,
       .hero-lede a,
       .p-card > p a {
-        color: var(--text-mid);
+        color: var(--text);
+        font-weight: 600;
         text-decoration: underline;
-        text-decoration-color: var(--border-hover);
+        text-decoration-color: rgba(79, 195, 247, 0.6);
+        text-decoration-thickness: 1.5px;
         text-underline-offset: 3px;
         transition: color 0.3s;
       }
@@ -444,7 +446,8 @@
       .contact-note a:hover,
       .hero-lede a:hover,
       .p-card > p a:hover {
-        color: var(--text);
+        color: var(--glow-warm);
+        text-decoration-color: rgba(245, 199, 106, 0.7);
       }
 
       @media (min-width: 640px) {
