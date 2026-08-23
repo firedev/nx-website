@@ -616,7 +616,7 @@
 
       .gear-row {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 1rem;
         margin-top: 1.25rem;
       }
@@ -625,6 +625,17 @@
         grid-column: auto;
         padding-left: 0;
         padding-top: 0;
+        min-width: 0;
+      }
+
+      .gear-row .contact-note {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem 0.9rem;
+      }
+
+      .gear-row .contact-note a {
+        margin-right: 0;
       }
 
       .crew-grid {
