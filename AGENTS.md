@@ -14,7 +14,7 @@
 Правка → коммит → пуш, собирать нечего:
 
 ```bash
-cd /Users/nick/obsidian/obsidian-life/Sites/nikolayx
+cd /Users/nick/Life/Sites/nikolayx
 git add -A && git commit -m "..." && git push
 ```
 
