@@ -7,7 +7,7 @@
 
     <meta
       name="description"
-      content="Our wedding and Anya's birthday, one celebration. 24 October 2026, NAMA Freediving, Phuket. Wear something blue."
+      content="Our wedding. 24 October 2026, NAMA Freediving, Phuket. Wear something blue."
     />
     <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#040c14" />
@@ -17,7 +17,7 @@
     <meta property="og:title" content="Nick &amp; Anya — 24 October" />
     <meta
       property="og:description"
-      content="Our wedding and Anya's birthday, one celebration. NAMA Freediving, Phuket. Wear something blue. You're invited."
+      content="Our wedding. 24 October 2026, NAMA Freediving, Phuket. Wear something blue. You're invited."
     />
     <meta property="og:image" content="https://nikolayx.com/wedding/us.jpg" />
 
@@ -814,7 +814,44 @@
         border-radius: 50%;
         border: 1px solid rgba(232, 244, 255, 0.2);
       }
+
+      .ru,
+      html[lang="ru"] .en {
+        display: none;
+      }
+
+      html[lang="ru"] .ru {
+        display: inline;
+      }
+
+      .lang-switch {
+        position: absolute;
+        top: 1.25rem;
+        right: 1.25rem;
+        z-index: 20;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        color: var(--text-dim);
+      }
+
+      .lang-switch a {
+        color: inherit;
+        text-decoration: none;
+        padding: 0.4rem;
+      }
+
+      .lang-switch a:hover,
+      html:not([lang="ru"]) .lang-switch [hreflang="en"],
+      html[lang="ru"] .lang-switch [hreflang="ru"] {
+        color: var(--text);
+      }
     </style>
+    <script>
+      document.documentElement.lang =
+        new URLSearchParams(location.search).get("lang") ||
+        (navigator.language.startsWith("ru") ? "ru" : "en");
+    </script>
   </head>
 
   <body>
@@ -822,16 +859,21 @@
     <div class="caustics"></div>
     <div class="grain"></div>
 
+    <nav class="lang-switch">
+      <a href="?lang=en" hreflang="en">EN</a> ·
+      <a href="?lang=ru" hreflang="ru">RU</a>
+    </nav>
+
     <main class="page">
       <header class="hero">
         <a href="/" class="hero-home reveal reveal-d1">nikolayx.com</a>
 
         <h1 class="hero-title reveal reveal-d2">
-          Nick<br /><em>&amp; Anya</em>
+          <span class="en">Nick<br /><em>&amp; Anya</em></span><span class="ru">Ник<br /><em>и Аня</em></span>
         </h1>
 
         <p class="hero-date reveal reveal-d2">
-          <a href="wedding.ics">24 October 2026</a> · Phuket
+          <a href="wedding.ics"><span class="en">24 October 2026</span><span class="ru">24 октября 2026</span></a> · <span class="en">Phuket</span><span class="ru">Пхукет</span>
         </p>
 
         <div class="hero-actions reveal reveal-d2">
@@ -842,14 +884,14 @@
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z" />
             </svg>
-            Tell us you're coming
+            <span class="en">Tell us you're coming</span><span class="ru">Скажите, что придёте</span>
           </a>
           <a href="https://maps.app.goo.gl/5DVK6hVzXfecCMYQ6" class="btn btn-ghost">
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
               <circle cx="12" cy="10" r="3" />
             </svg>
-            NAMA on the map
+            <span class="en">NAMA on the map</span><span class="ru">NAMA на карте</span>
           </a>
         </div>
 
@@ -862,9 +904,12 @@
         />
 
         <p class="hero-lede reveal reveal-d3">
-          Hi friend, we got married, and now we want to celebrate it with
-          you. Our wedding and Anya's birthday, one party, by the water at
-          <a href="https://maps.app.goo.gl/5DVK6hVzXfecCMYQ6">NAMA Freediving</a>.
+          <span class="en">Hi friend, we got married, and now we want to
+          celebrate it with you. By the water at
+          <a href="https://maps.app.goo.gl/5DVK6hVzXfecCMYQ6">NAMA Freediving</a>.</span>
+          <span class="ru">Привет! Мы поженились и хотим отпраздновать это
+          вместе с вами. У воды, в
+          <a href="https://maps.app.goo.gl/5DVK6hVzXfecCMYQ6">NAMA Freediving</a>.</span>
         </p>
 
       </header>
@@ -878,12 +923,13 @@
               <path d="M2 12c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0" />
               <path d="M2 18c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0" />
             </svg>
-            Wear something blue
+            <span class="en">Wear something blue</span><span class="ru">Что-нибудь синее</span>
           </h2>
           <p>
-            One small request: have a bit of blue on you. Any shade of blue,
-            any detail. A shirt, a scarf, earrings, a bracelet, socks. Navy,
-            turquoise, sky, ocean, all count.
+            <span class="en">It would be lovely if your outfit had any shade
+            of blue, anywhere and in any amount.</span>
+            <span class="ru">Будет здорово, если в вашей одежде будет любой
+            оттенок синего, в любом месте и количестве.</span>
           </p>
           <div class="blue-dots" aria-hidden="true">
             <span style="background: #0b1f4d"></span>
@@ -901,9 +947,9 @@
               <circle cx="12" cy="12" r="10" />
               <polyline points="12 6 12 12 16 14" />
             </svg>
-            Time and program
+            <span class="en">Time and program</span><span class="ru">Время и программа</span>
           </h2>
-          <p>We'll send the exact time and plan closer to the day.</p>
+          <p><span class="en">We'll send the exact time and plan closer to the day.</span><span class="ru">Точное время и программу пришлём ближе к дате.</span></p>
         </div>
 
         <div class="p-card">
@@ -913,13 +959,13 @@
                 d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"
               />
             </svg>
-            Questions
+            <span class="en">Questions</span><span class="ru">Вопросы</span>
           </h2>
-          <p>For questions, rides and directions, call Nick.</p>
+          <p><span class="en">For questions, rides and directions, call Nick.</span><span class="ru">С вопросами, трансфером и дорогой звоните Нику.</span></p>
           <div class="crew-grid">
             <a href="https://www.instagram.com/_nikolayx_/" class="crew">
               <img src="nikolayx.jpg" alt="" width="64" height="64" loading="lazy" class="crew-face" />
-              <span class="crew-name">Nick</span>
+              <span class="crew-name"><span class="en">Nick</span><span class="ru">Ник</span></span>
               <span class="crew-handle">@_nikolayx_</span>
             </a>
             <div class="crew-contact">
@@ -942,7 +988,7 @@
             </div>
             <a href="https://www.instagram.com/annie.ostrov/" class="crew">
               <img src="annie.ostrov.jpg" alt="" width="64" height="64" loading="lazy" class="crew-face" />
-              <span class="crew-name">Anya</span>
+              <span class="crew-name"><span class="en">Anya</span><span class="ru">Аня</span></span>
               <span class="crew-handle">@annie.ostrov</span>
             </a>
           </div>
@@ -951,7 +997,7 @@
 
       <footer class="close">
         <p class="close-line">
-          See you<br />in <em>blue</em>.
+          <span class="en">See you<br />in <em>blue</em>.</span><span class="ru">До встречи<br />в <em>синем</em>.</span>
         </p>
         <a
           href="https://wa.me/66873766365?text=I%27m%20coming%21"
@@ -960,7 +1006,7 @@
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z" />
           </svg>
-          Tell us you're coming
+          <span class="en">Tell us you're coming</span><span class="ru">Скажите, что придёте</span>
         </a>
       </footer>
     </main>
