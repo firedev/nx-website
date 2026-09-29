@@ -3,11 +3,11 @@ VERSION:2.0
 PRODID:-//nikolayx.com//wedding//EN
 BEGIN:VEVENT
 UID:wedding-2026@nikolayx.com
-DTSTAMP:20260927T120000Z
-DTSTART;VALUE=DATE:20261024
-DTEND;VALUE=DATE:20261025
+DTSTAMP:20260929T020000Z
+DTSTART:20261024T093000Z
+DTEND:20261024T140000Z
 SUMMARY:Anya & Nick — wedding
-DESCRIPTION:Our wedding. Wear something blue.\nDetails: https://nikolayx.com/wedding/
+DESCRIPTION:Our wedding. Guests arrive 16:30, ceremony 17:00. Wear something blue.\nDetails: https://nikolayx.com/wedding/
 LOCATION:NAMA Freediving\, Phuket
 URL:https://nikolayx.com/wedding/
 END:VEVENT
